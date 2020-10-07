@@ -37,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
        // utskrift = (TextView) findViewById(R.id.utskrift);
         db = new DBHandler(this);
         lv = (ListView)findViewById(R.id.liste);
-       List<Kontakt> liste = db.finnAlleKontakter();
-        final ArrayAdapter<Kontakt> adapter = new ArrayAdapter<Kontakt>(this,android.R.layout.simple_list_item_1,liste);
+       List<String> liste = visAlle();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,liste);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String data = adapter.getItem(i);
+                //Kontakt data = adapter.getItem(i);
+                String trakk = adapter.getItem(i);
+                String[]lb=trakk.split(" ");
+                Kontakt data = db.finnKontakt(lb[lb.length-1]);
                 System.out.println("du trakk på "+data.getNavn() + " tl: " + data.getTelefon());
+
             }
         });
 
@@ -60,13 +64,14 @@ public class MainActivity extends AppCompatActivity {
         List<Kontakt> kontakter = db.finnAlleKontakter();
         ArrayList<String> navn_Og_tlf = new ArrayList<>();
         for (Kontakt kontakt: kontakter) {
-            navn_Og_tlf.add(kontakt.navn+"\n"+kontakt.getTelefon())
+            navn_Og_tlf.add(kontakt.navn+"\n "+kontakt.getTelefon());
         }
         return navn_Og_tlf;
     }
     public void slett(View V){
        Long kontaktid = (Long.parseLong(telefoninn.getText().toString()));
        db.slettKontakt(kontaktid.toString());
+       recreate();
     }
     public void oppdater(View V){
         Kontakt kontakt = new Kontakt();

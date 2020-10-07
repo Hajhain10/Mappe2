@@ -51,6 +51,25 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
+    public Kontakt finnKontakt(String nummer) {
+        String selectQuery = "SELECT * FROM " + TABLE_KONTAKTER;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Kontakt kontakt = new Kontakt();
+                kontakt.setTelefon(cursor.getString(0));
+                kontakt.setNavn(cursor.getString(1));
+                if (kontakt.getTelefon().equals(nummer)) {
+                    System.out.println("Denne finnes fra før av" + "navn : " + kontakt.getNavn() + "telefon :" + kontakt.getTelefon());
+                    return kontakt;
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return null;
+    }
     public boolean sjekkOmFinnes(String nummer){
         boolean unik = true;
         String selectQuery = "SELECT * FROM "+TABLE_KONTAKTER;
