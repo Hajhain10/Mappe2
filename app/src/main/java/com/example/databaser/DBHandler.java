@@ -18,7 +18,7 @@ public class DBHandler extends SQLiteOpenHelper {
     // static String KEY_ID = "ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 2;
+    static int DATABASE_VERSION = 7;
     static String DATABASE_NAME = "Telefon Kontakter";
 
     public DBHandler(Context context){
@@ -109,6 +109,15 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         }
         return kontaktListe;
+    }
+    public ArrayList<String> visAlle(){
+        String tekst = "";
+        List<Kontakt> kontakter = finnAlleKontakter();
+        ArrayList<String> navn_Og_tlf = new ArrayList<>();
+        for (Kontakt kontakt: kontakter) {
+            navn_Og_tlf.add(kontakt.navn+"\n "+kontakt.getTelefon());
+        }
+        return navn_Og_tlf;
     }
     public void slettKontakt(String id){
         SQLiteDatabase db = this.getWritableDatabase();

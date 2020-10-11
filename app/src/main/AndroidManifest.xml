@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".kontakter" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".moter" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".visPersoner" android:parentActivityName=".moter"></activity>
+
     </application>
 
 </manifest>

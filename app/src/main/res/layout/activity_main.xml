@@ -4,46 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <ListView android:id="@+id/liste"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-    <LinearLayout
+
+    <Button
+        android:id="@+id/kontakter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:hint="navn"
-            android:id="@+id/navn"
+        android:text="kontakter"
+        android:onClick="tilkontakter"/>
 
-            >
-        </EditText>
-        <EditText
-            android:id="@+id/nummer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="nummer"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="Legg til"
-            android:onClick="leggtil"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="slett"
-            android:onClick="slett"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/mote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mote"
+        android:onClick="tilmote"/>
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>
