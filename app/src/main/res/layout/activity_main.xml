@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/kontakter"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/lilla"
+    android:orientation="vertical"
+    android:weightSum="10">
+    <Toolbar
+        android:id="@+id/mintoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="kontakter"
-        android:onClick="tilkontakter"/>
-
-    <Button
-        android:id="@+id/mote"
-        android:layout_width="match_parent"
+        android:background="@color/colorAccent">
+    </Toolbar>
+    <ListView android:id="@+id/liste"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mote"
-        android:onClick="tilmote"/>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:background="@color/lilla"
+        />
 </LinearLayout>

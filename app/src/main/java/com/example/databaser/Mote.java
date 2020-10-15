@@ -1,8 +1,10 @@
 package com.example.databaser;
 
+import android.app.Activity;
+
 import java.util.ArrayList;
 
-public class Mote {
+public class Mote extends Activity {
     String tid,dato="";
     String sted="";
     long id;

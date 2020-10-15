@@ -1,6 +1,8 @@
 package com.example.databaser;
 
-public class Kontakt {
+import android.app.Activity;
+
+public class Kontakt extends Activity {
     //long id;
     String navn;
     String telefon;
