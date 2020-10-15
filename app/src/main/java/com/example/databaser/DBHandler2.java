@@ -19,7 +19,7 @@ public class DBHandler2 extends SQLiteOpenHelper {
     static String KEY_TID = "Tid";
     static String KEY_STED = "Sted";
     static String KEY_DATO = "Dato";
-    static int DATABASE_VERSION = 14;
+    static int DATABASE_VERSION = 16;
     static String DATABASE_NAME = "Mote";
 
     public DBHandler2(Context context) {
@@ -74,6 +74,26 @@ public class DBHandler2 extends SQLiteOpenHelper {
         }
         return id;
     }
+    public Mote finnMote(Long nummer) {
+        String selectQuery = "SELECT * FROM " + TABLE_MOTE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Mote kontakt = new Mote();
+                kontakt.setId(cursor.getLong(0));
+                kontakt.setDato(cursor.getString(1));
+                kontakt.setTid(cursor.getString(2));
+                kontakt.setSted(cursor.getString(3));
+                if (kontakt.getId() == (nummer)) {
+                    return kontakt;
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return null;
+    }
     public List<Mote> finnAlleKontakter(){
         List<Mote> kontaktListe = new ArrayList<Mote>();
         String selectQuery = "SELECT * FROM "+TABLE_MOTE;
@@ -96,6 +116,7 @@ public class DBHandler2 extends SQLiteOpenHelper {
 
     public void slettKontakt(long id){
         SQLiteDatabase db = this.getWritableDatabase();
+        System.out.println(id+"hhhh");
         db.delete(TABLE_MOTE, KEY_ID + " =? " , new String[]{
                 String.valueOf(id)});
         db.close();

@@ -15,10 +15,10 @@ import java.util.List;
 public class DBHandler extends SQLiteOpenHelper {
 
     static String TABLE_KONTAKTER = "Kontakter";
-    // static String KEY_ID = "ID";
+    static String KEY_ID = "ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 7;
+    static int DATABASE_VERSION = 9;
     static String DATABASE_NAME = "Telefon Kontakter";
 
     public DBHandler(Context context){
@@ -31,7 +31,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String LAG_TABELL = "CREATE TABLE "+TABLE_KONTAKTER+"("+KEY_PH_NO+" String PRIMARY KEY,"+KEY_NAME+" TEXT"+")";
+        String LAG_TABELL = "CREATE TABLE "+TABLE_KONTAKTER+"("+KEY_ID+" INTEGER PRIMARY KEY, "+
+                KEY_PH_NO+" TEXT,"+KEY_NAME+" TEXT"+")";
         Log.d("SQL",LAG_TABELL);
         sqLiteDatabase.execSQL(LAG_TABELL);
     }
@@ -51,16 +52,17 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
-    public Kontakt finnKontakt(String nummer) {
+    public Kontakt finnKontakt(Long nummer) {
         String selectQuery = "SELECT * FROM " + TABLE_KONTAKTER;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 Kontakt kontakt = new Kontakt();
-                kontakt.setTelefon(cursor.getString(0));
-                kontakt.setNavn(cursor.getString(1));
-                if (kontakt.getTelefon().equals(nummer)) {
+                kontakt.setId(cursor.getLong(0));
+                kontakt.setTelefon(cursor.getString(1));
+                kontakt.setNavn(cursor.getString(2));
+                if (kontakt.getId()==(nummer)) {
                     System.out.println("Denne finnes fra før av" + "navn : " + kontakt.getNavn() + "telefon :" + kontakt.getTelefon());
                     return kontakt;
                 }
@@ -78,9 +80,9 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 Kontakt kontakt = new Kontakt();
-                //kontakt.setId(cursor.getLong(0));
-                kontakt.setTelefon(cursor.getString(0));
-                kontakt.setNavn(cursor.getString(1));
+                kontakt.setId(cursor.getLong(0));
+                kontakt.setTelefon(cursor.getString(1));
+                kontakt.setNavn(cursor.getString(2));
                 if(kontakt.getTelefon().equals(nummer)){
                     unik = false;
                     System.out.println("Denne finnes fra før av"+ "navn : "+kontakt.getNavn()+"telefon :"+kontakt.getTelefon());
@@ -100,9 +102,9 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 Kontakt kontakt = new Kontakt();
-                //kontakt.setId(cursor.getLong(0));
-                kontakt.setTelefon(cursor.getString(0));
-                kontakt.setNavn(cursor.getString(1));
+                kontakt.setId(cursor.getLong(0));
+                kontakt.setTelefon(cursor.getString(1));
+                kontakt.setNavn(cursor.getString(2));
                 kontaktListe.add(kontakt);
             }while (cursor.moveToNext());
             cursor.close();
@@ -115,14 +117,14 @@ public class DBHandler extends SQLiteOpenHelper {
         List<Kontakt> kontakter = finnAlleKontakter();
         ArrayList<String> navn_Og_tlf = new ArrayList<>();
         for (Kontakt kontakt: kontakter) {
-            navn_Og_tlf.add(kontakt.navn+"\n "+kontakt.getTelefon());
+            navn_Og_tlf.add(kontakt.getId()+" )"+kontakt.navn+"\n "+kontakt.getTelefon());
         }
         return navn_Og_tlf;
     }
-    public void slettKontakt(String id){
+    public void slettKontakt(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_KONTAKTER, KEY_PH_NO + " =? ", new String[]{
-                id});
+        db.delete(TABLE_KONTAKTER, KEY_ID + " =? ", new String[]{
+                String.valueOf(id)});
         db.close();
     }
     public int oppdaterKontakt(Kontakt kontakt){
@@ -130,8 +132,8 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME,kontakt.getNavn());
         values.put(KEY_PH_NO,kontakt.getTelefon());
-        int endret = db.update(TABLE_KONTAKTER,values,KEY_PH_NO+"= ?",
-                new String[]{kontakt.getTelefon()});
+        int endret = db.update(TABLE_KONTAKTER,values,KEY_ID+"= ?",
+                new String[]{String.valueOf(kontakt.getId())});
         db.close();
         return endret;
     }
