@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "clicked item"+i+" "+al.get(i).toString(), Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
 
@@ -95,12 +96,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.etellerannet:
                 Toast.makeText(this, "etellerannet", Toast.LENGTH_SHORT).show();
                 break;
-                default:
-                    // If wegothere, theuser'saction wasnot recognized.
-                    // Invokethesuperclassto handle it.
-                    return super.onOptionsItemSelected(item);
+            default:
+                // If wegothere, theuser'saction wasnot recognized.
+                // Invoketh                                     ||esuperclassto handle it.
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
+
+
 
 }
