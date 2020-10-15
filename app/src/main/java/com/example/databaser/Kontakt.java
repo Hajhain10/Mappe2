@@ -1,14 +1,12 @@
 package com.example.databaser;
 
-import android.app.Activity;
-
-public class Kontakt extends Activity {
-    //long id;
+public class Kontakt {
+    long id;
     String navn;
     String telefon;
 
     public Kontakt(long id, String navn, String telefon) {
-       // this.id = id;
+        this.id = id;
         this.navn = navn;
         this.telefon = telefon;
     }
@@ -37,5 +35,13 @@ public class Kontakt extends Activity {
 
     public void setTelefon(String telefon) {
         this.telefon = telefon;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

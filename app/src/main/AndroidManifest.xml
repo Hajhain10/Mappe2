@@ -16,8 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Kontakt" android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".Mote" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".kontakter" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".moter" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".visPersoner" android:parentActivityName=".moter"></activity>
+        <activity android:name=".oppdaterKontakt" android:parentActivityName=".kontakter"></activity>
+        <activity android:name=".oppdaterMote" android:parentActivityName=".moter"></activity>
 
     </application>
 
